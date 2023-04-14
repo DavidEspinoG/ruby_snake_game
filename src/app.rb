@@ -1,8 +1,8 @@
 require_relative "view/ruby2d.rb"
-require_relative "../model/state.rb"
-require_relative "../actions/actions.rb"
-view = View::Ruby2dView.new
+require_relative "./model/state.rb"
+require_relative "./actions/actions.rb"
 
+view = View::Ruby2dView.new
 initial_state = Model::initial_state
 
 view.renderGame(initial_state)
