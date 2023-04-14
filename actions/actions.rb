@@ -40,9 +40,9 @@ module Actions
 
   def self.position_is_valid? (state, position)
     # verify that the snake is on the grid
-    is_invalid =  ((position.row >= state.grid.rows ||
+    is_invalid =  ((position.row  - 1 > state.grid.rows ||
     position.row < 0) || 
-    (position.col >= state.grid.cols ||
+    (position.col - 1 > state.grid.cols ||
     position.col < 0))
     return false if is_invalid
     # verificar que no se superponga con la serpiente
