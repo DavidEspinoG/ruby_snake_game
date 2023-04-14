@@ -12,27 +12,25 @@ module Actions
     end
   end
 
-  private
-
-  def calc_next_position(state)
+  def self.calc_next_position(state)
     current_position = state.snake.positions.first
     case state.next_direction
-    when UP
+    when Model::Direction::UP
       # decrementar fila
       return Model::Coord.new(
         current_position.row - 1,
         current_position.col)
-    when RIGHT
+    when Model::Direction::RIGHT
       # incrementar columna
       return Model::Coord.new(
         current_position.row,
         current_position.col + 1)
-    when DOWN
+    when Model::Direction::DOWN
       # incrementar fila
       return Model::Coord.new(
         current_position.row + 1,
         current_position.col)
-    when LEFT
+    when Model::Direction::LEFT
       # decrementar columna
       return Model::Coord.new(
         current_position.row,
@@ -40,24 +38,24 @@ module Actions
     end
   end
 
-  def position_is_valid? (state, next_position)
+  def self.position_is_valid? (state, position)
     # verify that the snake is on the grid
-    is_invalid =  ((position.row > state.grid.rows && ||
+    is_invalid =  ((position.row >= state.grid.rows ||
     position.row < 0) || 
-    (position.col > state.grid.cols && ||
+    (position.col >= state.grid.cols ||
     position.col < 0))
     return false if is_invalid
     # verificar que no se superponga con la serpiente
-    return !(state.snake.positions.include?)
+    return !(state.snake.positions.include? position)
   end
 
-  def move_snake_to(state, next_position)
+  def self.move_snake_to(state, next_position)
     new_positions = [next_position] + state.snake.positions[0...-1]
     state.snake.positions = new_positions
     state
   end
 
-  def end_game(state)
+  def self.end_game(state)
     state.game_finished = true
     state
   end
